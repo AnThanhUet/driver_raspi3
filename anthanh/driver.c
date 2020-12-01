@@ -9,8 +9,8 @@
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/fd.h>
-#include <stdlib.h>
-#include "lcd.h"
+//#include <stdlib.h>
+
 
 unsigned char font6[][6] ={ 
    {0x00,0x00,0x00,0x00,0x00,0x00} // 20   
@@ -130,7 +130,7 @@ void LCD_gui1byte(unsigned char x, unsigned char byte)  // ham gui 1 byte du lie
 {
   unsigned char i;
   //bit outbit;
-  DC=x;		// x =1 hien thi ra man hinh, x=0 la gui lenh dieu khien LCD
+  gpio_set_value(DC, x);		// x =1 hien thi ra man hinh, x=0 la gui lenh dieu khien LCD
   for(i=0;i<8;i++)
   {
     	  // lay ra bit thu 7
@@ -141,7 +141,7 @@ void LCD_gui1byte(unsigned char x, unsigned char byte)  // ham gui 1 byte du lie
   }
 }
 
-void LCD_khoitao()
+void lCD_khoitao()
 {
     gpio_set_value(CLK_LCD, 0);
     gpio_set_value(CE, 0);		// cho phep LCD hoat dong
@@ -181,7 +181,7 @@ void LCD_chonvitri(unsigned char x, unsigned char y)
    LCD_gui1byte(0,(0x80 | (x-1)));  // chon cot
 }
 
-void LCD_xoamanhinh()
+void lCD_xoamanhinh()
 {
  char x,y;
  for(x=0;x<6;x++)
@@ -397,7 +397,7 @@ static int __init my_lcd_init(void)
     gpio_direction_output(SDA_LCD, 0);
     gpio_direction_output(CLK_LCD, 0);
     
-    LCD_khoitao();      
+    lCD_khoitao();      
 
     LCD_chonvitri(10,2);
     LCD_guichuoi("Goc DIY.com");  
@@ -437,7 +437,7 @@ static void __exit my_lcd_exit(void)
     cdev_del(&lcd_cdev);
     unregister_chrdev_region(dev_num, 1);
     printk(KERN_INFO "Module lcd5110 rmmoved\n");
-    kfree(kbuf);
+   // kfree(kbuf);
 }
 
 static int lcd5110_open(struct inode *inode, struct file *filp)
