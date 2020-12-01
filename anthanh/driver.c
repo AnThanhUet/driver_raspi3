@@ -129,12 +129,12 @@ unsigned char LCD[6][84] ={
 void LCD_gui1byte(unsigned char x, unsigned char byte)  // ham gui 1 byte du lieu den LCD
 {
   unsigned char i;
-  bit outbit;
+  //bit outbit;
   DC=x;		// x =1 hien thi ra man hinh, x=0 la gui lenh dieu khien LCD
   for(i=0;i<8;i++)
   {
-    outbit=byte&0x80;	  // lay ra bit thu 7
-	gpio_set_value(SDA_LCD, outbit);			  // gan chan SDA cho gia tri cua bit thu 7
+    	  // lay ra bit thu 7
+	gpio_set_value(SDA_LCD, byte&0x80);			  // gan chan SDA cho gia tri cua bit thu 7
 	gpio_set_value(CLK_LCD, 1);				  // tao xung nhip day bit qua LCD
 	gpio_set_value(CLK_LCD, 0);
 	byte = byte << 1;	  // dich trai 1 lan de chuan bi lay bit tiep theo
@@ -425,11 +425,13 @@ static int __init my_lcd_init(void)
 
 static void __exit my_lcd_exit(void)
 {
-    int pins[5] = {RES, SCE, DC, SDIN, SCLK};
-        for(int g=0; g<6; g++)
-        {
-            gpio_free(pins[g]);
-        }
+
+    gpio_free(CE);
+    gpio_free(RST);
+    gpio_free(DC);
+    gpio_free(SDA_LCD);
+    gpio_free(CLK_LCD);
+
     device_destroy(lcd_class, dev_num);
     class_destroy(lcd_class);
     cdev_del(&lcd_cdev);
@@ -457,7 +459,7 @@ static ssize_t lcd5110_read(struct file *filp, char __user *buf, size_t count, l
 
 static ssize_t lcd5110_write(struct file *filp, const char *buf, size_t count, loff_t *f_pos)
 {
-    /* Buffer writing to the device */
+    /* Buffer writing to the device
     char *kbuf = kcalloc((count + 1), sizeof(char), GFP_KERNEL);
 
     if (copy_to_user(kbuf, buf, count) != 0)
@@ -470,6 +472,7 @@ static ssize_t lcd5110_write(struct file *filp, const char *buf, size_t count, l
     clearLcdScreen();
     writeStringToLcd(kbuf);
     //kfree(kbuf);
+     */
     return count;
 }
 
