@@ -6,7 +6,6 @@
 #include <linux/err.h>
 #include <linux/mm.h>
 
-//Tested with kernel 4.9.79
 
 MODULE_LICENSE("GPL");
 
