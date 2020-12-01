@@ -5,11 +5,11 @@
 #include <linux/gpio.h>
 #include <linux/delay.h>
 
-#define LCD_CLK			    66	
-#define LCD_DIN			    69	
+#define LCD_CLK			    23	
+#define LCD_DIN			    22	
 
-#define LCD_RST_PIN		    47	
-#define LCD_DC_PIN		    45	
+#define LCD_RST_PIN		    17	
+#define LCD_DC_PIN		    27	
 
 #define LCD_WIDTH			84
 #define LCD_HEIGHT			48
