@@ -249,7 +249,7 @@ void LCD_veduongthang(int x, int y,int x1, int y1)
 {
  int dx,dy,err,ystep; 
  int steep=abs(y1-y) > abs(x1-x);   
- int xtd,ytd;
+ int xtd,ytd; 
  if(x==x1)
  {
   ytd=y1-y;  
