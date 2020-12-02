@@ -80,7 +80,7 @@ void lcd_send(unsigned int *base_addr, unsigned char cmd)
 		gpio_set_value(base_addr, gpio_pin[i], tmp);
 	}
 }
-
+/***************************************************************************************/
 /*GPIO17 for reset*/
 void lcd_reset(unsigned int *base_addr, int value)
 {
@@ -98,7 +98,7 @@ void lcd_enable(unsigned int *base_addr, int value)
 {
 	gpio_set_value(base_addr, 19, value);
 }
-
+/***************************************************************************************/
 void wait_busy(unsigned int *base_addr)
 {
 	int busy;
@@ -129,7 +129,9 @@ void write_cmd(unsigned int *base_addr, unsigned char byte)
 	lcd_reset(base_addr, 0);
 	lcd_rw(base_addr, 0);
 	msleep(1);
+
 	lcd_send(base_addr, byte);
+	
 	lcd_enable(base_addr, 1);
 	msleep(1);
 	lcd_enable(base_addr, 0);

@@ -28,10 +28,10 @@ void LCD_command(unsigned char cmd)
 
     //EN = 1 // bat dau khuyn truyen en = 1
     gpio_set_value(EN, 1);
-    msleep(1)// 1milis
+    msleep(1);// 1milis
     //En = 0 // ket thuc khung truyen
     gpio_set_value(EN, 0);
-    msleep(3)
+    msleep(3);
 }
 
 void LCD_char(unsigned char char_data)
@@ -49,7 +49,7 @@ void LCD_char(unsigned char char_data)
     // set data
     for(i = 7; i >= 0; i--)
     {
-        temp = (cmd & (1 << (7 - i)));
+        temp = (char_data & (1 << (7 - i)));
         if(temp)
         {
             gpio_set_value(gpio_data[i], 1);
@@ -63,10 +63,10 @@ void LCD_char(unsigned char char_data)
 
     //EN = 1 // bat dau khuyn truyen en = 1
     gpio_set_value(EN, 1);
-    msleep(1)// 1milis
+    msleep(1);// 1milis
     //En = 0 // ket thuc khung truyen
     gpio_set_value(EN, 0);
-    msleep(3)
+    msleep(3);
 }
 
 void LCD_init(void)
@@ -78,7 +78,7 @@ void LCD_init(void)
     {
         gpio_direction_output(gpio_pin[i], 0);
     }
-    delay(20)
+    msleep(20);
 
     LCD_command(0x38); // khoi tao lcd sung 8 bit mode va 2 line
     LCD_command(0x0C); // bat lcd va tat con tro
