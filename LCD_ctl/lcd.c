@@ -8,9 +8,23 @@ rst 17
 r/w 18
 enable 19
 */
+/*Define for GPIO*/
+#define RS		    2
+#define RW			3
+#define EN			4
 
 
-int gpio_pin[11] = {9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+/*Define data*/
+#define D0          21
+#define D1			20
+#define D2			16
+#define D3			12
+#define D4		    1
+#define D5		    7
+#define D6		    8
+#define D7		    25
+
+int gpio_pin[11] = {D0, D1, D2, D3, D4, D5, D6, D7, RS, RW, EN};
 
 /*void gpio_set_output(unsigned int *base_addr)
 {
