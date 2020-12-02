@@ -67,8 +67,8 @@ static int __init my_lcd_init(void)
         goto r_device;
     }
 
-    LCD_init();
-    LCD_clear();
+    LCD_init(void);
+    LCD_clear(void);
     LCD_string("anthanh");
 
     printk(KERN_INFO "Module lcd16x2 inserted\n");
@@ -93,7 +93,7 @@ static void __exit my_lcd_exit(void)
     cdev_del(&lcd_cdev);
     unregister_chrdev_region(dev_num, 1);
     printk(KERN_INFO "Module lcd 16x2 rmmoved\n");
-    kfree(kbuf);
+    //kfree(kbuf);
 }
 
 static int lcd5110_open(struct inode *inode, struct file *filp)
