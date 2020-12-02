@@ -11,7 +11,7 @@
 
 static int count;
 static char message[50];
-static char buff[20] = "nguyen thanh tung\n";
+static char buff[20] = "nguyen the an\n";
 unsigned int *gpio_addr;
 
 static int dev_open(struct inode *, struct file *);
@@ -129,6 +129,6 @@ module_init(example_init);
 module_exit(example_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("tungnt58-khotv");
+MODULE_AUTHOR("AnNT");
 MODULE_VERSION("0.1");
 

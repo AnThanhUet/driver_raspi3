@@ -1,0 +1,1 @@
+cmd_/home/pi/Desktop/driver_raspi3/LCD_ctl/lcd_driver.ko := ld -r  -EL  --build-id  -T ./scripts/module-common.lds -T ./arch/arm/kernel/module.lds -o /home/pi/Desktop/driver_raspi3/LCD_ctl/lcd_driver.ko /home/pi/Desktop/driver_raspi3/LCD_ctl/lcd_driver.o /home/pi/Desktop/driver_raspi3/LCD_ctl/lcd_driver.mod.o;  true
