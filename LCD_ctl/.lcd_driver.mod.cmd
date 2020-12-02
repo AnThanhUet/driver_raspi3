@@ -1,1 +1,0 @@
-cmd_/home/pi/Desktop/driver_raspi3/LCD_ctl/lcd_driver.mod := { echo  /home/pi/Desktop/driver_raspi3/LCD_ctl/lcd.o /home/pi/Desktop/driver_raspi3/LCD_ctl/lcd_ctl.o; echo; } > /home/pi/Desktop/driver_raspi3/LCD_ctl/lcd_driver.mod
