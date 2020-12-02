@@ -12,7 +12,7 @@
 #include <linux/device.h>
 #include <linux/fd.h>
 
-
+#include "lcd.h"
 
 static dev_t dev_num = 0;
 static struct class *lcd_class;
@@ -69,7 +69,7 @@ static int __init my_lcd_init(void)
 
     LCD_init(void);
     LCD_clear(void);
-    LCD_string("anthanh");
+    LCD_string_xy(0, 0, "anthanh");
 
     printk(KERN_INFO "Module lcd16x2 inserted\n");
     return 0;
