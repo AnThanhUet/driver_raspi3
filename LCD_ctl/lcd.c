@@ -3,7 +3,11 @@
 /*set gpio from gpio9 to gpio19 output
 *GPIO from 9 to 16 spend for data transfer
 */
-
+/*
+rst 17
+r/w 18
+enable 19
+*/
 
 
 int gpio_pin[11] = {9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
