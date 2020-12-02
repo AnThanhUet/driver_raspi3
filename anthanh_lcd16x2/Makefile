@@ -1,8 +1,10 @@
-obj-m += lcd_driver.o
-lcd_driver-objs := lcd.o driver.o
+KERNEL_HEADERS=/lib/modules/$(shell uname -r)/build
+
+ccflags-y += -std=gnu11
+obj-m += driver.o
 
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
-clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	make -C $(KERNEL_HEADERS) M=$(PWD) modules
 
+clean:
+	make -C $(KERNEL_HEADERS) M=$(PWD) clean
