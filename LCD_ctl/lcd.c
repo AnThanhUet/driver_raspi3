@@ -91,7 +91,7 @@ void lcd_send(unsigned int *base_addr, unsigned char cmd)
 	//set_data_to_low(base_addr);
 	for (i = 7; i >= 0; i--) {
 		tmp = (cmd & (1 << (7 - i))) > 0;
-		gpio_set_value(base_addr, gpio_pin[7-i], tmp);
+		gpio_set_value(base_addr, gpio_pin[i], tmp);
 	}
 }
 /***************************************************************************************/
