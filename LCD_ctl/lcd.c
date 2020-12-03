@@ -39,7 +39,7 @@ int gpio_pin[11] = {D0, D1, D2, D3, D4, D5, D6, D7, RS, RW, EN};
 void gpio_set_direction(unsigned int *base_addr, Direction direct, int pin)
 {
 	if (direct == INPUT)
-		*(base_addr + (pin / 10)) = (*(base_addr + (pin /10)) & ~(7 << ((pin % 10)*3)) |
+		*(base_addr + (pin / 10)) = ((*(base_addr + (pin /10)) & ~(7 << ((pin % 10)*3))) |
 						(0 << ((pin % 10) * 3)));
 	else
 		*(base_addr + (pin / 10)) = (*(base_addr + (pin /10)) & ~(7 << ((pin % 10)*3)) |
@@ -125,10 +125,10 @@ void wait_busy(unsigned int *base_addr)
 	gpio_set_direction(base_addr, INPUT, 9); /*set pin 9 to input*/
 	while (1) {
 		lcd_enable(base_addr, 1);
-		msleep(1);
+		mdelay(1);
 		busy = get_pin_state(base_addr, 9);
 		lcd_enable(base_addr, 0);
-		msleep(1);
+		mdelay(1);
 		if (!busy)
 			break;
 	}
@@ -142,12 +142,12 @@ void write_cmd(unsigned int *base_addr, unsigned char byte)
 	wait_busy(base_addr);
 	lcd_reset(base_addr, 0);
 	lcd_rw(base_addr, 0);
-	msleep(1);
+	mdelay(1);
 
 	lcd_send(base_addr, byte);
 	
 	lcd_enable(base_addr, 1);
-	msleep(1);
+	mdelay(1);
 	lcd_enable(base_addr, 0);
 }
 
@@ -156,10 +156,10 @@ void write_char(unsigned int *base_addr, unsigned char c)
 	wait_busy(base_addr);
 	lcd_reset(base_addr, 1);
 	lcd_rw(base_addr, 0);
-	msleep(1);
+	mdelay(1);
 	lcd_send(base_addr, c);
 	lcd_enable(base_addr, 1);
-	msleep(1);
+	mdelay(1);
 	lcd_enable(base_addr, 0);
 }
 
@@ -185,22 +185,28 @@ void goto_xy(unsigned int *base_addr, unsigned char row, unsigned char col)
 void clear_screen(unsigned int *base_addr)
 {
 	write_cmd(base_addr, CLRSCR);
-	msleep(1);
+	mdelay(1);
 }
 
 void setup_lcd(unsigned int *base_addr)
 {
-	gpio_init(base_addr);
-	msleep(2);
-	write_cmd(base_addr, 0x30);
-	msleep(2);
-	write_cmd(base_addr, 0x30);
-        msleep(2);
-	write_cmd(base_addr, 0x30);
-        msleep(2);
+	lcd_reset(base_addr, 1);
 	lcd_enable(base_addr, 1);
-	msleep(2);
+
+	gpio_init(base_addr);
+
+	mdelay(40);
+	write_cmd(base_addr, 0x30);
+	mdelay(2);
+	write_cmd(base_addr, 0x30);
+    mdelay(2);
+	write_cmd(base_addr, 0x30);
+    mdelay(2);
+
+	lcd_enable(base_addr, 1);
+	mdelay(2);
 	lcd_enable(base_addr, 0);
+	
 	wait_busy(base_addr);
 	write_cmd(base_addr, FUNCTION);
 	write_cmd(base_addr, CONTROL);
