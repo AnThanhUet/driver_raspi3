@@ -215,8 +215,8 @@ static int __init my_lcd_init(void)
         goto r_device;
     }
 
-    LCD_init(void);
-    LCD_clear(void);
+    LCD_init();
+    LCD_clear();
     LCD_string_xy(0, 0, "anthanh");
 
     printk(KERN_INFO "Module lcd16x2 inserted\n");
