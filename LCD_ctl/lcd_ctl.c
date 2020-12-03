@@ -104,6 +104,7 @@ static int __init example_init(void)
 
 	gpio_addr = (unsigned int *)ioremap(GPIO_BASE_ADDR, 0x100);
 	setup_lcd(gpio_addr);
+	//write_char(gpio_addr, 'a');
 	write_string(gpio_addr, "a");
 	ret = misc_register(&my_dev);
 	if (ret) {

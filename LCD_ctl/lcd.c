@@ -42,7 +42,7 @@ void gpio_set_direction(unsigned int *base_addr, Direction direct, int pin)
 		*(base_addr + (pin / 10)) = ((*(base_addr + (pin /10)) & ~(7 << ((pin % 10)*3))) |
 						(0 << ((pin % 10) * 3)));
 	else
-		*(base_addr + (pin / 10)) = (*(base_addr + (pin /10)) & ~(7 << ((pin % 10)*3)) |
+		*(base_addr + (pin / 10)) = ((*(base_addr + (pin /10)) & ~(7 << ((pin % 10)*3))) |
 						(1 << ((pin % 10) * 3)));
 }
 
@@ -158,6 +158,7 @@ void write_char(unsigned int *base_addr, unsigned char c)
 	lcd_rw(base_addr, 0);
 	mdelay(1);
 	lcd_send(base_addr, c);
+
 	lcd_enable(base_addr, 1);
 	mdelay(1);
 	lcd_enable(base_addr, 0);
@@ -206,7 +207,7 @@ void setup_lcd(unsigned int *base_addr)
 	lcd_enable(base_addr, 1);
 	mdelay(2);
 	lcd_enable(base_addr, 0);
-	
+
 	wait_busy(base_addr);
 	write_cmd(base_addr, FUNCTION);
 	write_cmd(base_addr, CONTROL);
